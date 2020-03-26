@@ -44,3 +44,35 @@ model.summary()
 #
 # 现在，配置模型来使用优化器和损失函数：
 model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
+# 训练模型
+# 以 512 个样本的 mini-batch 大小迭代 20 个 epoch 来训练模型。 这是指对 x_train 和 y_train 张量中所有样本的的 20 次迭代。在训练过程中，
+# 监测来自验证集的 10,000 个样本上的损失值（loss）和准确率（accuracy）：
+history = model.fit(train_data.shuffle(1000).batch(512), epochs=20, validation_data=validation_data.batch(512),
+                    verbose=1)
+
+# 评估模型
+# 返回两个值。损失值（loss）（一个表示误差的数字，值越低越好）与准确率（accuracy）。
+result = model.evaluate(test_data.batch(512), verbose=2)
+for name, value in zip(model.metrics_names, result):
+    print("%s : %.3f" % (name, value))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
